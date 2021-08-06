@@ -1,0 +1,48 @@
+import React, { PureComponent } from "react";
+import styled from "styled-components";
+import colors from "../../../styles/colors";
+
+const Field = styled.div`
+    background-color: ${colors.black};
+    position: relative;
+    top: -10px;
+
+    color: ${colors.white};
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100vw;
+    height: 110px;
+    padding-bottom: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 21px;
+    letter-spacing: 0.5px;
+    text-align: center;
+`;
+
+export default class AlertToast extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            focussed: (props.locked && props.focussed) || false,
+            value: props.value || "",
+            label: props.label || "",
+        };
+    }
+
+    handleChange = (e) => {
+        this.props.callback(e);
+        const {
+            target: { value },
+        } = e;
+
+        this.setState({
+            value: value,
+        });
+    };
+
+    render() {
+        return <Field>{this.props.children}</Field>;
+    }
+}
